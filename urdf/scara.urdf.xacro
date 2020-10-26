@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="scara">
+  <material name="black">
+      <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+
+  <material name="dark">
+    <color rgba="0.3 0.3 0.3 1.0"/>
+  </material>
+  <material name="light_black">
+    <color rgba="0.4 0.4 0.4 1.0"/>
+  </material>
+
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+
+  <material name="grey">
+    <color rgba="0.7 0.7 0.7 1.0"/>
+  </material>
+
+  <material name="orange">
+    <color rgba="${255/255} ${108/255} ${10/255} 1.0"/>
+  </material>
+
+  <material name="brown">
+    <color rgba="${222/255} ${207/255} ${195/255} 1.0"/>
+  </material>
+
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+  <link name="base_link">
+     <visual>
+      <geometry>
+        <box size="0.3 0.3 1.0"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 -0.5"/>
+      <material name="white"/>
+    </visual>  
+    <collision>
+      <geometry>
+        <box size="0.3 0.3 1.0"/>
+      </geometry>
+    </collision>   
+  </link>
+
+  
+  <link name="link_1">
+       <visual>
+      <geometry>
+        <box size="1.0 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.5 0 0"/>
+      <material name="grey"/>
+    </visual>  
+    <collision>
+      <geometry>
+        <box size="1.0 0.1 0.1"/>
+      </geometry>
+    </collision>   
+  </link>
+
+  
+  <link name="link_2">
+       <visual>
+      <geometry>
+        <box size="1.0 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.5 0 0"/>
+      <material name="light_black"/>
+    </visual>  
+    <collision>
+      <geometry>
+        <box size="1.0 0.1 0.1"/>
+      </geometry>
+    </collision>   
+  </link>
+
+  
+  <link name="link_3">
+       <visual>
+      <geometry>
+        <box size="1.0 0.1 0.1"/>
+      </geometry>
+      <origin rpy="0 1.57057 0" xyz="0 0 0.5"/>
+      <material name="grey"/>
+    </visual>  
+    <collision>
+      <geometry>
+        <box size="1.0 0.1 0.1"/>
+      </geometry>
+    </collision>   
+  </link>
+
+  
+  <joint name="link1_to_base" type="revolute">
+
+    <parent link="base_link"/>
+    
+    <child link="link_1"/>
+
+    <origin xyz="0 0 0"/>
+    
+    <axis xyz="0 0 1" />
+
+    <limit effort="100" velocity="0.1" lower="-3.14" upper="3.14"/>
+  </joint>
+
+  
+  <joint name="link2_to_link1" type="revolute">
+    <parent link="link_1"/>
+    <child link="link_2"/>
+    <origin xyz="1 0 0"/>
+    <axis xyz="0 0 1" />
+    <limit effort="100" velocity="0.1" lower="-3.14" upper="3.14"/>
+  </joint>
+
+
+  <joint name="link3_to_link2" type="prismatic">
+    <parent link="link_2"/>
+    <child link="link_3"/>
+
+    <origin xyz="1 0 0"/>
+    <axis xyz="0 0 -1" />
+    <limit effort="100" velocity="0.1" lower="0" upper="1"/>
+  </joint>
+</robot>
